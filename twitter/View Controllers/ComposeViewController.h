@@ -10,14 +10,17 @@
 #import "Tweet.h"
 #import "APIManager.h"
 
-@interface ComposeViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
-
-@end
-
 @protocol ComposeViewControllerDelegate
 
 - (void)didTweet:(Tweet *)tweet;
 
 @end
+
+@interface ComposeViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
+@property (nonatomic, weak) id<ComposeViewControllerDelegate> delegate;
+
+@end
+
