@@ -11,6 +11,7 @@
 #import "Tweet.h"
 #import "TweetCell.h"
 #import "ComposeViewController.h"
+#import "LoginViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -75,27 +76,21 @@
     composeController.delegate = self;
 }
 
+- (IBAction)didTapLogout:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    
+    [[APIManager shared]logout];
+}
 
 
 - (UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
-    Tweet *tweet = self.tweets[indexPath.row];
+    cell.tweet = self.tweets[indexPath.row];
     
-    /*
-    @property (weak, nonatomic) IBOutlet UIImageView *profilePicView;
-    @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-    @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-    @property (weak, nonatomic) IBOutlet UILabel *tweetLabel;
-    @property (weak, nonatomic) IBOutlet UIImageView *replyIcon;
-    @property (weak, nonatomic) IBOutlet UIImageView *retweetIcon;
-    @property (weak, nonatomic) IBOutlet UIImageView *likeIcon;
-    @property (weak, nonatomic) IBOutlet UIImageView *messageIcon;
-     */
-    
-    cell.nameLabel.text = tweet.user.name;
-    cell.usernameLabel.text = tweet.user.screenName;
-    cell.tweetLabel.text = tweet.text;
-    
+    [cell configureCell];
     return cell;
 }
 

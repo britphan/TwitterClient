@@ -13,6 +13,7 @@
 // MARK: Properties
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *screenName;
+@property (strong, nonatomic) NSURL *profPicURL;
 
 // Create initializer
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;

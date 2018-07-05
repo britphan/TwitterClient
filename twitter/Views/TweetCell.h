@@ -8,16 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
+#import "UIImageView+AFNetworking.h"
+#import "APIManager.h"
 
 @interface TweetCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tweetLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *replyIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *retweetIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *likeIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *messageIcon;
 @property (strong, nonatomic) Tweet *tweet;
+@property (weak, nonatomic) IBOutlet UILabel *rtCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favCountLabel;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
+-(void)configureCell;
 @end
