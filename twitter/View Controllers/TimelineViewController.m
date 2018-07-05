@@ -12,6 +12,7 @@
 #import "TweetCell.h"
 #import "ComposeViewController.h"
 #import "LoginViewController.h"
+#import "DetailsViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -27,7 +28,7 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = 115;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     
     [self fetchTweets];
@@ -70,11 +71,22 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"composeSegue"]){
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+    }
+    if ([segue.identifier isEqualToString:@"detailSegue"]){
+        
+        DetailsViewController *detailController = (DetailsViewController*)[segue destinationViewController];
+        detailController.cell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:true];
+        
+    }
     
-    UINavigationController *navigationController = [segue destinationViewController];
-    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-    composeController.delegate = self;
 }
+
 
 - (IBAction)didTapLogout:(id)sender {
     AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
@@ -89,7 +101,6 @@
 - (UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     cell.tweet = self.tweets[indexPath.row];
-    
     [cell configureCell];
     return cell;
 }
@@ -97,4 +108,6 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tweets.count;
 }
+
+
 @end

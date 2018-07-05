@@ -12,16 +12,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 -(void)configureCell {
     if (self.tweet) {
         NSLog(@"%@",self.tweet.user.profPicURL.absoluteString);
         self.dateLabel.text = self.tweet.createdAtString;
         [self.profilePicView setImageWithURL:self.tweet.user.profPicURL];
         self.nameLabel.text = self.tweet.user.name;
-        self.usernameLabel.text = self.tweet.user.screenName;
+        self.usernameLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
         self.tweetLabel.text = self.tweet.text;
         self.rtCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
         self.favCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
