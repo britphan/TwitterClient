@@ -7,6 +7,7 @@
 //
 
 #import "Tweet.h"
+#import "APIManager.h"
 
 @implementation Tweet
 
@@ -24,14 +25,15 @@
             dictionary = originalTweet;
         }
         self.idStr = dictionary[@"id_str"];
-        self.text = dictionary[@"text"];
+        self.text = dictionary[@"full_text"];
         self.favoriteCount = [dictionary[@"favorite_count"] intValue];
         self.favorited = [dictionary[@"favorited"] boolValue];
         self.retweetCount = [dictionary[@"retweet_count"] intValue];
         self.retweeted = [dictionary[@"retweeted"] boolValue];
         
-        NSDictionary *user = dictionary[@"user"];
-        self.user = [[User alloc] initWithDictionary:user];
+        NSDictionary *userDictionary = dictionary[@"user"];
+        self.user = [[User alloc] initWithDictionary:userDictionary];
+    
         
         // Format createdAt date string
         NSString *createdAtOriginalString = dictionary[@"created_at"];

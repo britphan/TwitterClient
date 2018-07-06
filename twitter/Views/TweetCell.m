@@ -12,7 +12,16 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
+    [self.profilePicView addGestureRecognizer:profileTapGestureRecognizer];
+    [self.profilePicView setUserInteractionEnabled:YES];
+
 }
+
+- (void) didTapUserProfile:(UITapGestureRecognizer *)sender{
+    [self.delegate tweetCell:self didTap:self.tweet.user];
+}
+
 -(void)configureCell {
     if (self.tweet) {
         NSLog(@"%@",self.tweet.user.profPicURL.absoluteString);

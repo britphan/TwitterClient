@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "APIManager.h"
 
+@protocol TweetCellDelegate;
 
 @interface TweetCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -25,6 +26,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
+
+@property (nonatomic, weak) id<TweetCellDelegate> delegate;
+
+
 -(void)configureCell;
 @end
 
+@protocol TweetCellDelegate
+- (void)tweetCell:(TweetCell *) tweetCell didTap: (User *)user;
+@end

@@ -50,8 +50,9 @@ static NSString * const consumerSecret = @"TB59xRi8zHTn6VO6goH6KDN3uDgEfn6WATxca
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
     // Create a GET Request
+    NSDictionary *parameters= @{@"tweet_mode":@"extended"};
     [self GET:@"1.1/statuses/home_timeline.json"
-   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+   parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
        // Success
        NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
        completion(tweets, nil);
@@ -60,6 +61,7 @@ static NSString * const consumerSecret = @"TB59xRi8zHTn6VO6goH6KDN3uDgEfn6WATxca
        completion(nil, error);
    }];
 }
+
 
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion{
     NSString *urlString = @"1.1/statuses/update.json";

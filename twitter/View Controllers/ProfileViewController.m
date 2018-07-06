@@ -1,31 +1,32 @@
 //
-//  DetailsViewController.m
+//  ProfileViewController.m
 //  twitter
 //
 //  Created by Britney Phan on 7/5/18.
 //  Copyright © 2018 Emerson Malca. All rights reserved.
 //
 
-#import "DetailsViewController.h"
+#import "ProfileViewController.h"
+#import "APIManager.h"
 
-@interface DetailsViewController ()
+@interface ProfileViewController ()
 
 @end
 
-@implementation DetailsViewController
+@implementation ProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tweet = self.cell.tweet;
-    if (self.tweet) {
-        
-        self.dateLabel.text = self.tweet.createdAtString;
-        [self.profPicView setImageWithURL:self.tweet.user.profPicURL];
-        self.nameLabel.text = self.tweet.user.name;
-        self.usernameLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
-        self.tweetLabel.text = self.tweet.text;
-    }
+    [self.profPicView setImageWithURL:self.user.profPicURL];
+    [self.bannerView setImageWithURL:self.user.bannerURL];
+    self.nameLabel.text = self.user.name;
+    self.usernameLabel.text = self.user.screenName;
+    self.descriptionLabel.text = self.user.userDescription;
+    self.tweetCountLabel.text = self.user.tweetCount;
+    self.followersCountLabel.text = self.user.followersCount;
+    self.followingCountLabel.text = self.user.followingCount;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
