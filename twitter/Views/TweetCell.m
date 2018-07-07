@@ -13,8 +13,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
+    
+    UITapGestureRecognizer *nameTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
     [self.profilePicView addGestureRecognizer:profileTapGestureRecognizer];
     [self.profilePicView setUserInteractionEnabled:YES];
+    [self.nameLabel addGestureRecognizer:nameTapGestureRecognizer];
+    [self.nameLabel setUserInteractionEnabled:YES];
 
 }
 
@@ -24,9 +28,12 @@
 
 -(void)configureCell {
     if (self.tweet) {
-        NSLog(@"%@",self.tweet.user.profPicURL.absoluteString);
         self.dateLabel.text = self.tweet.createdAtString;
         [self.profilePicView setImageWithURL:self.tweet.user.profPicURL];
+        
+        self.profilePicView.layer.cornerRadius = self.profilePicView.frame.size.height /2;
+        self.profilePicView.layer.masksToBounds = YES;
+        self.profilePicView.layer.borderWidth = 0;
         self.nameLabel.text = self.tweet.user.name;
         self.usernameLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
         self.tweetLabel.text = self.tweet.text;
@@ -35,8 +42,14 @@
         if(self.tweet.retweeted) {
             self.retweetButton.selected = YES;
         }
+        else {
+            self.retweetButton.selected = NO;
+        }
         if(self.tweet.favorited) {
             self.favoriteButton.selected = YES;
+        }
+        else {
+            self.favoriteButton.selected = NO;
         }
     }
 }

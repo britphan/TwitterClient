@@ -10,11 +10,8 @@
 #import "Tweet.h"
 #import "APIManager.h"
 
-@protocol ComposeViewControllerDelegate
+@protocol ComposeViewControllerDelegate;
 
-- (void)didTweet:(Tweet *)tweet;
-
-@end
 
 @interface ComposeViewController : UIViewController
 
@@ -24,3 +21,9 @@
 
 @end
 
+
+
+@protocol ComposeViewControllerDelegate 
+- (void)didTweet:(Tweet *)tweet;
+
+@end

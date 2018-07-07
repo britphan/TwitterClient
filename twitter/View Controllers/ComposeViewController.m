@@ -19,6 +19,7 @@
     // Do any additional setup after loading the view.
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -27,11 +28,13 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 - (IBAction)tweetButtonTapped:(id)sender {
+    //NSString *text = self.textView.text;
     [[APIManager shared] postStatusWithText:self.textView.text completion:^(Tweet *tweet, NSError *error) {
         if(error){
             NSLog(@"Error composing Tweet: %@", error.localizedDescription);
         }
         else{
+            NSLog(@"%@",tweet.text);
             [self.delegate didTweet:tweet];
             NSLog(@"Compose Tweet Success!");
         }

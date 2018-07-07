@@ -41,6 +41,11 @@
     
     
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self.tableView reloadData];
+}
+
 - (void)didTweet:(Tweet *)tweet{
     [self.tweets insertObject:tweet atIndex:0];
     [self.tableView reloadData];
@@ -57,12 +62,13 @@
         if (tweetsLoaded) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
             self.tweets = [NSMutableArray arrayWithArray:tweetsLoaded];
+            [self.tableView reloadData];
             
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
         
-        [self.tableView reloadData];
+        
         [self.refreshControl endRefreshing];
     }];
 }

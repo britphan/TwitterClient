@@ -19,6 +19,9 @@
     [super viewDidLoad];
     [self.profPicView setImageWithURL:self.user.profPicURL];
     [self.bannerView setImageWithURL:self.user.bannerURL];
+    self.profPicView.layer.cornerRadius = self.profPicView.frame.size.height /2;
+    self.profPicView.layer.masksToBounds = YES;
+    self.profPicView.layer.borderWidth = 0;
     self.nameLabel.text = self.user.name;
     self.usernameLabel.text = self.user.screenName;
     self.descriptionLabel.text = self.user.userDescription;
